@@ -1,33 +1,43 @@
 const projects = [
   {
-    title: "GodRun - Global Game Jam",
-    description: "Game jam prototype from Global Game Jam.",
+    title: "GodRun",
+    description: "Fast jam-built prototype focused on momentum, readability, and a strong core loop.",
+    meta: "Global Game Jam",
     site: "https://rogisa.itch.io/godrun-global-game-jam",
-    widget: '<iframe frameborder="0" src="https://itch.io/embed/4251792?border_width=0&amp;dark=true" width="550" height="165"><a href="https://rogisa.itch.io/godrun-global-game-jam">GodRun - Global Game Jam by rogi</a></iframe>'
+    tags: ["Jam", "Prototype"],
+    icon: "directions_run"
   },
   {
-    title: "Smoke Brake_GMTK_game jam",
-    description: "GMTK game jam project.",
+    title: "Smoke Brake",
+    description: "GMTK jam concept built around one clear mechanic and a compact presentation.",
+    meta: "GMTK Game Jam",
     site: "https://rogisa.itch.io/smoke-brake-gmtk-game-jam",
-    widget: '<iframe frameborder="0" src="https://itch.io/embed/3834246?border_width=0&amp;dark=true" width="550" height="165"><a href="https://rogisa.itch.io/smoke-brake-gmtk-game-jam">Smoke Brake_GMTK_game jam by rogi</a></iframe>'
+    tags: ["Mechanic", "Jam"],
+    icon: "smoking_rooms"
   },
   {
     title: "Gamblers Gate",
-    description: "Itch.io release with embedded widget.",
+    description: "A darker game idea with a stronger world hook and more specific tone.",
+    meta: "Personal Project",
     site: "https://rogisa.itch.io/gambler-city",
-    widget: '<iframe frameborder="0" src="https://itch.io/embed/3983948?border_width=0&amp;bg_color=222222&amp;fg_color=eeeeee&amp;border_color=363636" width="550" height="165"><a href="https://rogisa.itch.io/gambler-city">Gamblers Gate by rogi</a></iframe>'
+    tags: ["Tone", "World"],
+    icon: "poker_chip"
   },
   {
     title: "AZIL_GJ_Blokjed",
-    description: "Game jam prototype from Blokjed.",
+    description: "Short-form game jam project designed to land quickly and communicate its idea fast.",
+    meta: "Blokjed Jam",
     site: "https://rogisa.itch.io/azil-gj-blokjed",
-    widget: '<iframe frameborder="0" src="https://itch.io/embed/3316524?border_width=0&amp;dark=true" width="550" height="165"><a href="https://rogisa.itch.io/azil-gj-blokjed">AZIL_GJ_Blokjed by rogi</a></iframe>'
+    tags: ["Jam", "Fast Build"],
+    icon: "pet_supplies"
   },
   {
-    title: "Indeks Otpora - GGJ",
-    description: "Educational project from Global Game Jam.",
+    title: "Indeks Otpora",
+    description: "A compact concept project shaped around interaction, message, and clear delivery.",
+    meta: "Global Game Jam",
     site: "https://rogisa.itch.io/test1",
-    widget: '<iframe frameborder="0" src="https://itch.io/embed/3271894?border_width=0&amp;bg_color=222222&amp;fg_color=eeeeee&amp;link_color=ffffff&amp;border_color=363636" width="550" height="165"><a href="https://rogisa.itch.io/test1">Indeks Otpora - GGJ by rogi</a></iframe>'
+    tags: ["Interactive", "Concept"],
+    icon: "book"
   }
 ];
 
@@ -42,6 +52,15 @@ const artLinks = [
     `
   },
   {
+    title: "Instagram",
+    href: "https://www.instagram.com/niko.rog/",
+    icon: `
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.75 1.65a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6Z"/>
+      </svg>
+    `
+  },
+  {
     title: "YouTube",
     href: "https://www.youtube.com/@Highflyer_Project",
     icon: `
@@ -52,47 +71,41 @@ const artLinks = [
   }
 ];
 
+const artImages = [
+  "assets/images/01 .png",
+  "assets/images/03 fortr creatrive 2.png",
+  "assets/images/04 saint jerome close.jpg",
+  "assets/images/05 driver_1.jpg",
+  "assets/images/06 drvoArt_2.jpg",
+  "assets/images/07 wolfGray.png",
+  "assets/images/igrica.png",
+  "assets/images/locked in v3.jpg",
+  "assets/images/snakeRingCol_2.png"
+];
+
 const artLinksContainer = document.getElementById("art-links");
+const artGalleryList = document.getElementById("art-gallery-list");
+const artPrev = document.getElementById("art-prev");
+const artNext = document.getElementById("art-next");
 const projectList = document.getElementById("project-list");
 const projectDetailHost = document.getElementById("project-detail-host");
 const shelfPrev = document.getElementById("shelf-prev");
 const shelfNext = document.getElementById("shelf-next");
+const topbar = document.getElementById("topbar");
+const topbarShell = document.getElementById("topbar-shell");
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightbox-image");
+const lightboxClose = document.getElementById("lightbox-close");
 
 let activeProjectIndex = null;
 
-function bindGlassTracking() {
-  const glassItems = document.querySelectorAll(
-    ".hero-links a, .about-links a, .project-link, .art-link-card, .project-card, .about-box, .project-detail"
-  );
-
-  glassItems.forEach((item) => {
-    item.style.setProperty("--lx", "50%");
-    item.style.setProperty("--ly", "50%");
-
-    item.addEventListener("pointermove", (event) => {
-      const rect = item.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width) * 100;
-      const y = ((event.clientY - rect.top) / rect.height) * 100;
-      item.style.setProperty("--lx", `${x}%`);
-      item.style.setProperty("--ly", `${y}%`);
-    });
-
-    item.addEventListener("pointerleave", () => {
-      item.style.setProperty("--lx", "50%");
-      item.style.setProperty("--ly", "50%");
-    });
-  });
-}
-
 function renderArtLinks() {
   artLinksContainer.innerHTML = artLinks.map((item) => `
-    <a href="${item.href}" target="_blank" rel="noopener noreferrer" class="art-link-card">
+    <a href="${item.href}" target="_blank" rel="noopener noreferrer" class="art-link-card${item.title === "ArtStation" ? " has-text status-pill" : ""}" aria-label="${item.title}" title="${item.title}">
       ${item.icon}
       <span>${item.title}</span>
     </a>
   `).join("");
-
-  bindGlassTracking();
 }
 
 function renderProjects() {
@@ -103,7 +116,10 @@ function renderProjects() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `project-card${activeProjectIndex === index ? " active" : ""}`;
-    button.innerHTML = `<span class="project-card-title">${project.title}</span>`;
+    button.innerHTML = `
+      <span class="project-card-icon material-symbols-outlined" aria-hidden="true">${project.icon}</span>
+      <span class="project-card-title">${project.title}</span>
+    `;
 
     button.addEventListener("click", () => {
       activeProjectIndex = activeProjectIndex === index ? null : index;
@@ -121,42 +137,121 @@ function renderProjects() {
       <h3>${project.title}</h3>
       <div class="project-body">
         <p>${project.description}</p>
+        <div class="feature-tags">
+          ${project.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+        </div>
         <div class="project-links">
-          <a href="${project.site}" target="_blank" rel="noopener noreferrer" class="project-link">open project</a>
+          <a href="${project.site}" target="_blank" rel="noopener noreferrer" class="project-link">open project &#8599;</a>
         </div>
       </div>
     `;
     projectDetailHost.appendChild(detail);
   }
-
-  bindGlassTracking();
 }
 
-renderArtLinks();
-renderProjects();
+function renderArtGallery() {
+  if (!artGalleryList) {
+    return;
+  }
 
-function updateAmbientGlow(x, y) {
-  const root = document.documentElement;
-  const px = (x / window.innerWidth) * 100;
-  const py = (y / window.innerHeight) * 100;
-  root.style.setProperty("--mx", `${px}%`);
-  root.style.setProperty("--my", `${py}%`);
+  const sortedImages = [...artImages].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
+  artGalleryList.innerHTML = sortedImages.map((src) => `
+    <button class="art-thumb" type="button" data-image="${src}" aria-label="Open artwork fullscreen">
+      <img src="${src}" alt="">
+    </button>
+  `).join("");
+
+  artGalleryList.querySelectorAll(".art-thumb").forEach((button) => {
+    button.addEventListener("click", () => openLightbox(button.dataset.image));
+  });
 }
-
-window.addEventListener("pointermove", (event) => {
-  updateAmbientGlow(event.clientX, event.clientY);
-});
-
-document.body.addEventListener("pointerleave", () => {
-  updateAmbientGlow(window.innerWidth * 0.5, window.innerHeight * 0.3);
-});
-
-updateAmbientGlow(window.innerWidth * 0.5, window.innerHeight * 0.3);
 
 function scrollShelf(direction) {
-  const amount = Math.min(260, projectList.clientWidth * 0.8);
+  const amount = Math.min(340, projectList.clientWidth * 0.85);
   projectList.scrollBy({ left: amount * direction, behavior: "smooth" });
+}
+
+function updateTopbar() {
+  topbar.classList.toggle("is-scrolled", window.scrollY > 36);
+}
+
+function setupMobileHeaderJump() {
+  if (!topbarShell) {
+    return;
+  }
+
+  topbarShell.addEventListener("click", (event) => {
+    if (window.innerWidth > 767) {
+      return;
+    }
+
+    event.preventDefault();
+    window.location.hash = "contact";
+  });
+}
+
+function scrollArtGallery(direction) {
+  if (!artGalleryList) {
+    return;
+  }
+
+  const amount = Math.min(360, artGalleryList.clientWidth * 0.85);
+  artGalleryList.scrollBy({ left: amount * direction, behavior: "smooth" });
+}
+
+function openLightbox(src) {
+  if (!lightbox || !lightboxImage) {
+    return;
+  }
+
+  lightboxImage.src = src;
+  lightbox.hidden = false;
+}
+
+function closeLightbox() {
+  if (!lightbox || !lightboxImage) {
+    return;
+  }
+
+  lightbox.hidden = true;
+  lightboxImage.src = "";
+}
+
+function setupArtGallery() {
+  if (!artPrev || !artNext) {
+    return;
+  }
+
+  artPrev.addEventListener("click", () => scrollArtGallery(-1));
+  artNext.addEventListener("click", () => scrollArtGallery(1));
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener("click", closeLightbox);
+  }
+
+  if (lightbox) {
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+  });
 }
 
 shelfPrev.addEventListener("click", () => scrollShelf(-1));
 shelfNext.addEventListener("click", () => scrollShelf(1));
+window.addEventListener("scroll", updateTopbar, { passive: true });
+
+renderArtLinks();
+renderArtGallery();
+renderProjects();
+updateTopbar();
+setupMobileHeaderJump();
+setupArtGallery();
